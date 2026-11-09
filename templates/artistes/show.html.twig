@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ artiste.pseudonyme }}{% endblock %}
+
+{% block body %}
+    <p><a href="{{ path('app_artistes') }}">← Retour aux artistes</a></p>
+
+    <h1>{{ artiste.pseudonyme }}</h1>
+    {% if artiste.nomReel %}<p>Nom réel : {{ artiste.nomReel }}</p>{% endif %}
+    <p>Nationalité : {{ artiste.nationalite }}</p>
+    <p>{{ artiste.bio }}</p>
+
+    <h2>Œuvres</h2>
+    <ul>
+        {% for oeuvre in oeuvres %}
+            <li>
+                <a href="{{ path('app_oeuvres_show', {id: oeuvre.id}) }}">{{ oeuvre.titre }}</a>
+                ({{ oeuvre.dateCreation|date('Y') }})
+            </li>
+        {% else %}
+            <li>Aucune œuvre.</li>
+
+                {% if is_granted('ROLE_ADMIN') %}
+        <form method="post" action="{{ path('app_artistes_delete', {id: artiste.id}) }}"
+              onsubmit="return confirm('Supprimer cet artiste ?');">
+            <input type="hidden" name="_token" value="{{ csrf_token('supprimer_artiste' ~ artiste.id) }}">
+            <button type="submit">Supprimer cet artiste</button>
+        </form>
+    {% endif %}
+        {% endfor %}
+    </ul>
+{% endblock %}

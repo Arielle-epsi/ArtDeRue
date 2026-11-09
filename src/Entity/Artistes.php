@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\ArtistesRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ArtistesRepository::class)]
@@ -13,17 +14,17 @@ class Artistes
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 100, unique: true)]
     private ?string $pseudonyme = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 100, nullable: true)]
     private ?string $nom_reel = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $bio = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $nationalité = null;
+    #[ORM\Column(length: 100, nullable: true)]
+    private ?string $nationalite = null;
 
     public function getId(): ?int
     {
@@ -47,7 +48,7 @@ class Artistes
         return $this->nom_reel;
     }
 
-    public function setNomReel(string $nom_reel): static
+    public function setNomReel(?string $nom_reel): static
     {
         $this->nom_reel = $nom_reel;
 
@@ -66,14 +67,14 @@ class Artistes
         return $this;
     }
 
-    public function getNationalité(): ?string
+    public function getNationalite(): ?string
     {
-        return $this->nationalité;
+        return $this->nationalite;
     }
 
-    public function setNationalité(?string $nationalité): static
+    public function setNationalite(?string $nationalite): static
     {
-        $this->nationalité = $nationalité;
+        $this->nationalite = $nationalite;
 
         return $this;
     }

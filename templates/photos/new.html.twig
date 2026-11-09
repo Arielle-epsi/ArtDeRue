@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Publier une photo{% endblock %}
+
+{% block body %}
+    <h1>Publier une photo</h1>
+
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <button type="submit">Publier</button>
+    {{ form_end(form) }}
+{% endblock %}

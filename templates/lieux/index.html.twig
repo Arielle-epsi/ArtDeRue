@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Lieux{% endblock %}
+
+{% block body %}
+    <h1>Les lieux</h1>
+
+    {% for lieu in lieux %}
+        <article>
+            <h2>{{ lieu.nom }}</h2>
+            <p>{{ lieu.adresse }}, {{ lieu.quartier }}</p>
+            <p>Coordonnées : {{ lieu.latitude }}, {{ lieu.longitude }}</p>
+
+            <h3>Œuvres</h3>
+            <ul>
+                {% for oeuvre in oeuvresParLieu[lieu.id] %}
+                    <li>
+                        <a href="{{ path('app_oeuvres_show', {id: oeuvre.id}) }}">{{ oeuvre.titre }}</a>
+                    </li>
+                {% else %}
+                    <li>Aucune œuvre.</li>
+                {% endfor %}
+            </ul>
+        </article>
+    {% endfor %}
+{% endblock %}

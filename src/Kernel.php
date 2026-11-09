@@ -16,4 +16,14 @@ class Kernel extends BaseKernel
     {
         return ['prod', 'dev', 'test'];
     }
+
+        public function getCacheDir(): string
+    {
+        return sys_get_temp_dir() . '/artderue/cache/' . $this->environment;
+    }
+
+    public function getLogDir(): string
+    {
+        return sys_get_temp_dir() . '/artderue/log';
+    }
 }

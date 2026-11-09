@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ oeuvre.titre }}{% endblock %}
+
+{% block body %}
+    <p><a href="{{ path('app_oeuvres') }}">← Retour aux œuvres</a></p>
+
+    <h1>{{ oeuvre.titre }}</h1>
+    <p>{{ oeuvre.description }}</p>
+    <p>Créée le {{ oeuvre.dateCreation|date('d/m/Y') }} à {{ oeuvre.lieu.nom }}</p>
+
+        {% if oeuvre.estDetruite %}
+        <p><strong>Cette œuvre n'existe plus.</strong> Les photos ci-dessous en gardent la trace.</p>
+    {% elseif is_granted('ROLE_ADMIN') %}
+        <form method="post" action="{{ path('app_oeuvres_detruite', {id: oeuvre.id}) }}"
+              onsubmit="return confirm('Marquer cette œuvre comme détruite ?');">
+            <input type="hidden" name="_token" value="{{ csrf_token('detruite' ~ oeuvre.id) }}">
+            <button type="submit">Marquer comme détruite</button>
+        </form>
+    {% endif %}
+
+    {% if oeuvre.oeuvreRecouverte %}
+        <p>Recouvre l'œuvre :
+            <a href="{{ path('app_oeuvres_show', {id: oeuvre.oeuvreRecouverte.id}) }}">
+                {{ oeuvre.oeuvreRecouverte.titre }}
+            </a>
+        </p>
+    {% endif %}
+
+    <h2>Photos</h2>
+    <ul>
+        {% for photo in photos %}
+            <li>
+                <img src="/uploads/photos/{{ photo.nomFichier }}"
+                     alt="{{ oeuvre.titre }}, photo du {{ photo.datePriseVue|date('d/m/Y') }}"
+                     width="300"><br>
+                {{ photo.datePriseVue|date('d/m/Y') }}
+                {% if photo.etatOeuvre %} : {{ photo.etatOeuvre }}{% endif %}
+                , par {{ photo.benevole.prenom }} {{ photo.benevole.nom }}
+            </li>
+        {% else %}
+            <li>Aucune photo.</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

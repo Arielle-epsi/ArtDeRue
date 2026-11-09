@@ -1,3 +1,146 @@
+:root {
+    --fond: #f4f1ec;
+    --texte: #222;
+    --sombre: #1c1c1e;
+    --accent: #e4572e;
+    --accent-fonce: #b9411f;
+    --carte: #ffffff;
+    --bordure: #ddd6cc;
+}
+
+* {
+    box-sizing: border-box;
+}
+
 body {
-    background-color: skyblue;
+    margin: 0;
+    background-color: var(--fond);
+    color: var(--texte);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    line-height: 1.6;
+}
+
+/* Menu */
+header {
+    background: var(--sombre);
+    padding: 0.9rem 1.5rem;
+}
+
+nav {
+    max-width: 960px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.2rem;
+    align-items: center;
+    color: #cfcfcf;
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+nav a:hover {
+    color: var(--accent);
+}
+
+/* Contenu */
+main {
+    max-width: 960px;
+    margin: 2rem auto;
+    padding: 0 1.5rem;
+}
+
+h1 {
+    margin-top: 0;
+    font-size: 2rem;
+    border-bottom: 4px solid var(--accent);
+    padding-bottom: 0.4rem;
+    display: inline-block;
+}
+
+h2 {
+    margin-bottom: 0.3rem;
+}
+
+a {
+    color: var(--accent-fonce);
+}
+
+a:hover {
+    color: var(--accent);
+}
+
+/* Cartes : œuvres et lieux */
+article {
+    background: var(--carte);
+    border: 1px solid var(--bordure);
+    border-radius: 8px;
+    padding: 1rem 1.4rem;
+    margin-bottom: 1.2rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+article h2 {
+    margin-top: 0;
+}
+
+article p {
+    margin: 0.3rem 0;
+}
+
+/* Listes */
+ul {
+    padding-left: 1.2rem;
+}
+
+li {
+    margin-bottom: 0.8rem;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 6px;
+}
+
+/* Formulaires */
+form label {
+    display: block;
+    font-weight: 600;
+    margin-top: 0.9rem;
+}
+
+form input[type="text"],
+form input[type="email"],
+form input[type="password"],
+form select {
+    width: 100%;
+    max-width: 420px;
+    padding: 0.5rem 0.6rem;
+    border: 1px solid var(--bordure);
+    border-radius: 6px;
+    font-size: 1rem;
+}
+
+button {
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 0.55rem 1.1rem;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 0.8rem;
+}
+
+button:hover {
+    background: var(--accent-fonce);
+}
+
+hr {
+    display: none;
 }

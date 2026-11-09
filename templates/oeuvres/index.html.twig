@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Œuvres{% endblock %}
+
+{% block body %}
+    <h1>Les œuvres</h1>
+
+    {% for oeuvre in oeuvres %}
+        <article>
+            <h2><a href="{{ path('app_oeuvres_show', {id: oeuvre.id}) }}">{{ oeuvre.titre }}</a></h2>
+            <p>{{ oeuvre.description }}</p>
+            <p>Lieu : {{ oeuvre.lieu.nom }} ({{ oeuvre.lieu.quartier }})</p>
+            <p>
+                Artistes :
+                {% for artiste in oeuvre.artistes %}
+                    {{ artiste.pseudonyme }}{% if not loop.last %}, {% endif %}
+                {% endfor %}
+            </p>
+            <p>
+                Techniques :
+                {% for technique in oeuvre.techniques %}
+                    {{ technique.nom }}{% if not loop.last %}, {% endif %}
+                {% endfor %}
+            </p>
+            {% if oeuvre.estDetruite %}<p><em>Œuvre détruite</em></p>{% endif %}
+        </article>
+    {% endfor %}
+{% endblock %}

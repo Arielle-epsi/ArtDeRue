@@ -2,6 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>{% block title %}Welcome!{% endblock %}</title>
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
         {% block stylesheets %}
@@ -19,6 +20,35 @@
         {% endif %}
     </head>
     <body>
-        {% block body %}{% endblock %}
+        <header>
+            <nav>
+                <a href="{{ path('app_artistes') }}">Artistes</a>
+                <a href="{{ path('app_oeuvres') }}">Œuvres</a>
+                <a href="{{ path('app_lieux') }}">Lieux</a>
+                <a href="{{ path('app_techniques') }}">Techniques</a>
+                
+                {% if is_granted('ROLE_USER') %}
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a href="{{ path('app_photos_new') }}">Publier une photo</a>
+                        <a href="{{ path('app_oeuvres_new') }}">Ajouter une œuvre</a>
+                    {% endif %}
+                    <span>Bonjour {{ app.user.prenom }}</span>
+                    <a href="{{ path('app_logout') }}">Déconnexion</a>
+                {% else %}
+                    <a href="{{ path('app_login') }}">Connexion</a>
+                {% endif %}
+            </nav>
+        </header>
+
+        <main>
+            {% for message in app.flashes('success') %}
+                <p style="color: green;">{{ message }}</p>
+            {% endfor %}
+            {% for message in app.flashes('error') %}
+                <p style="color: red;">{{ message }}</p>
+            {% endfor %}
+
+            {% block body %}{% endblock %}
+        </main>
     </body>
 </html>

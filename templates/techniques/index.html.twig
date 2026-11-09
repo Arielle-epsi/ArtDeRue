@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Techniques{% endblock %}
+
+{% block body %}
+    <h1>Les techniques</h1>
+
+    <ul>
+        {% for technique in techniques %}
+            <li>
+                {{ technique.nom }}
+                {% if is_granted('ROLE_ADMIN') %}
+                    <form method="post" action="{{ path('app_techniques_delete', {id: technique.id}) }}"
+                          style="display: inline;"
+                          onsubmit="return confirm('Supprimer cette technique ?');">
+                        <input type="hidden" name="_token" value="{{ csrf_token('supprimer_technique' ~ technique.id) }}">
+                        <button type="submit">Supprimer</button>
+                    </form>
+                {% endif %}
+            </li>
+        {% else %}
+            <li>Aucune technique.</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
